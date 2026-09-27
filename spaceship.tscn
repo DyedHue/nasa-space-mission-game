@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://cwe0r4ywbfttg"]
+
+[ext_resource type="Script" uid="uid://day1ae4mha2rc" path="res://spaceship.gd" id="1_y3uy0"]
+[ext_resource type="Texture2D" uid="uid://3gq6lwrlkimi" path="res://rocket.png" id="2_7g3nn"]
+[ext_resource type="Texture2D" uid="uid://qx2ow80m5hrs" path="res://exhaust.png" id="2_pmkdn"]
+[ext_resource type="Script" uid="uid://dwquy86uph5jg" path="res://exhaust.gd" id="3_51qc7"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pmkdn"]
+radius = 71.0
+height = 547.1063
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v6two"]
+size = Vector2(6, 24)
+
+[node name="Spaceship" type="RigidBody2D" unique_id=1190256098]
+gravity_scale = 0.0
+script = ExtResource("1_y3uy0")
+
+[node name="Exhaust" type="Sprite2D" parent="." unique_id=2089721478]
+position = Vector2(0, 13.000001)
+scale = Vector2(0.017981583, 0.022131182)
+texture = ExtResource("2_pmkdn")
+script = ExtResource("3_51qc7")
+
+[node name="Rocket" type="Sprite2D" parent="." unique_id=1869902842]
+scale = Vector2(0.055015698, 0.055015698)
+texture = ExtResource("2_7g3nn")
+offset = Vector2(-5.565, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=218452053]
+position = Vector2(0, -4.000003)
+scale = Vector2(0.051178362, 0.051178362)
+shape = SubResource("CapsuleShape2D_pmkdn")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=1447586783]
+position = Vector2(-5, 13)
+scale = Vector2(0.2766398, 0.2766398)
+shape = SubResource("RectangleShape2D_v6two")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="." unique_id=10427741]
+position = Vector2(5, 12.999999)
+scale = Vector2(0.2766398, 0.2766398)
+shape = SubResource("RectangleShape2D_v6two")
+
+[node name="ForwardDirection" type="Node2D" parent="." unique_id=755866012]
+position = Vector2(0, -1)
+scale = Vector2(0.2766398, 0.2766398)

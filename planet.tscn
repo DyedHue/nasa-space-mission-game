@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://c4o566pkvsiv5"]
+
+[ext_resource type="Texture2D" uid="uid://ccuhl0ohc5bm6" path="res://earth.png" id="1_1odxm"]
+[ext_resource type="Script" uid="uid://dcx3qdytp4wtc" path="res://planet.gd" id="1_mtr83"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v6two"]
+radius = 304.00165
+
+[node name="Planet" type="AnimatableBody2D" unique_id=440025245]
+script = ExtResource("1_mtr83")
+
+[node name="Earth" type="Sprite2D" parent="." unique_id=579282271]
+texture = ExtResource("1_1odxm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=258074943]
+shape = SubResource("CircleShape2D_v6two")

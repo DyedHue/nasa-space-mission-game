@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://bdttthlc2k0p7"]
+
+[ext_resource type="Texture2D" uid="uid://l3ujkw5sy7bb" path="res://sun.png" id="1_4hwty"]
+[ext_resource type="Script" uid="uid://cn2m3thn5gila" path="res://camera.gd" id="1_pevjf"]
+[ext_resource type="PackedScene" uid="uid://c4o566pkvsiv5" path="res://planet.tscn" id="2_pevjf"]
+[ext_resource type="PackedScene" uid="uid://cwe0r4ywbfttg" path="res://spaceship.tscn" id="3_56m4v"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p138y"]
+radius = 459.9913
+
+[node name="Space" type="Node2D" unique_id=758463626]
+
+[node name="Sun" type="Area2D" parent="." unique_id=274742862]
+
+[node name="Sun" type="Sprite2D" parent="Sun" unique_id=1360050268]
+scale = Vector2(0.315, 0.315)
+texture = ExtResource("1_4hwty")
+offset = Vector2(19.87, 3.975)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sun" unique_id=807964428]
+scale = Vector2(1.63, 1.63)
+shape = SubResource("CircleShape2D_p138y")
+
+[node name="Planet" parent="." unique_id=440025245 groups=["gravity_sources"] instance=ExtResource("2_pevjf")]
+position = Vector2(5000, 119)
+
+[node name="Spaceship" parent="." unique_id=1190256098 node_paths=PackedStringArray("trajectory") instance=ExtResource("3_56m4v")]
+position = Vector2(5019, -331)
+mass = 21.822
+center_of_mass_mode = 1
+trajectory = NodePath("../Line2D")
+
+[node name="Camera2D" type="Camera2D" parent="Spaceship" unique_id=602443403]
+zoom = Vector2(0.73, 0.73)
+script = ExtResource("1_pevjf")
+
+[node name="Line2D" type="Line2D" parent="." unique_id=502294482]
+width = 5.0
