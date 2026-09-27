@@ -1,7 +1,7 @@
 extends AnimatableBody2D
 @export var orbit_radius: float = 5000.0
-@export var orbit_speed: float = 0.05
-@export var mass: float = 50000.0
+@export var orbit_speed: float = 0.01
+@export var mass: float = 100000.0
 var orbit_angle: float = 0.0
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

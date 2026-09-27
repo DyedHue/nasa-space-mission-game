@@ -1,5 +1,5 @@
 extends RigidBody2D
-@export var G:float = 800
+@export var G:float = 1000
 @export var trajectory: Line2D
 @onready var forward_direction = $ForwardDirection
 var engine_on := false
@@ -17,9 +17,9 @@ func _physics_process(delta: float) -> void:
 		apply_torque(-3000)
 	else:
 		angular_velocity = lerp(angular_velocity, 0.0, delta * 3.0)
-		
+
 	if engine_on:
-		apply_central_force(global_position.direction_to(forward_direction.global_position) * 9000)
+		apply_central_force(global_position.direction_to(forward_direction.global_position) * 21500)
 	var planets = get_tree().get_nodes_in_group("gravity_sources")
 	for planet in planets:
 		# Vector math to find direction and distance
@@ -44,7 +44,7 @@ func _physics_process(delta: float) -> void:
 		var total_acceleration := Vector2.ZERO
 		for planet in planets:
 			# Vector math to find direction and distance
-			var future_pos = planet.get_future_position(i/10)
+			var future_pos = planet.get_future_position(i/10.0)
 			var direction_to_planet = current_position.direction_to(future_pos)
 			var distance = current_position.distance_to(future_pos)
 			

@@ -23,10 +23,11 @@ shape = SubResource("CircleShape2D_p138y")
 
 [node name="Planet" parent="." unique_id=440025245 groups=["gravity_sources"] instance=ExtResource("2_pevjf")]
 position = Vector2(5000, 119)
+scale = Vector2(2.245, 2.245)
 
 [node name="Spaceship" parent="." unique_id=1190256098 node_paths=PackedStringArray("trajectory") instance=ExtResource("3_56m4v")]
-position = Vector2(5019, -331)
-mass = 21.822
+position = Vector2(4979, -649)
+mass = 89.212
 center_of_mass_mode = 1
 trajectory = NodePath("../Line2D")
 
