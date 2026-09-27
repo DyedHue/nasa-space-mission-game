@@ -13,12 +13,8 @@ radius = 459.9913
 [node name="Space" type="Node2D" unique_id=758463626]
 
 [node name="Sun" parent="." unique_id=440025245 groups=["gravity_sources"] instance=ExtResource("2_pevjf")]
+planet_texture = ExtResource("1_4hwty")
 orbit_radius = 0.0
-
-[node name="Sun" type="Sprite2D" parent="Sun" unique_id=1360050268]
-scale = Vector2(0.315, 0.315)
-texture = ExtResource("1_4hwty")
-offset = Vector2(19.87, 3.975)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Sun" unique_id=807964428]
 scale = Vector2(1.63, 1.63)
@@ -27,11 +23,8 @@ shape = SubResource("CircleShape2D_p138y")
 [node name="Earth" parent="." unique_id=451977070 groups=["gravity_sources"] instance=ExtResource("2_pevjf")]
 position = Vector2(5000, 0)
 scale = Vector2(2.245, 2.245)
+planet_texture = ExtResource("3_i3b6p")
 orbit_radius = 30000.0
-
-[node name="Earth" type="Sprite2D" parent="Earth" unique_id=876286434]
-scale = Vector2(1.0000001, 1.0000001)
-texture = ExtResource("3_i3b6p")
 
 [node name="Spaceship" parent="." unique_id=1190256098 node_paths=PackedStringArray("trajectory") instance=ExtResource("3_56m4v")]
 position = Vector2(10000, -710)
