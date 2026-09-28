@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://bdttthlc2k0p7"]
 
+[ext_resource type="Texture2D" uid="uid://l3ujkw5sy7bb" path="res://sun.png" id="1_4hwty"]
 [ext_resource type="Script" uid="uid://cn2m3thn5gila" path="res://camera.gd" id="1_pevjf"]
 [ext_resource type="Script" uid="uid://c22r7goaus53e" path="res://sun.gd" id="2_p6gje"]
 [ext_resource type="PackedScene" uid="uid://c4o566pkvsiv5" path="res://planet.tscn" id="2_pevjf"]
@@ -8,21 +9,13 @@
 [ext_resource type="Script" uid="uid://dc7vmny4t4opo" path="res://option_button.gd" id="6_i3b6p"]
 [ext_resource type="Texture2D" uid="uid://dopa1ekelp5mg" path="res://mars.png" id="7_p6gje"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_p138y"]
-radius = 459.9913
-
 [node name="Space" type="Node2D" unique_id=758463626]
 
-[node name="Sun" parent="." unique_id=440025245 groups=["gravity_sources"] instance=ExtResource("2_pevjf")]
+[node name="Sun" type="StaticBody2D" parent="." unique_id=688560730 groups=["gravity_sources"]]
 script = ExtResource("2_p6gje")
-planet_texture = ExtResource("3_i3b6p")
-orbit_radius = 0.0
-mass = 500000.0
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Sun" unique_id=807964428]
-visible = false
-scale = Vector2(1.63, 1.63)
-shape = SubResource("CircleShape2D_p138y")
+[node name="Sun" type="Sprite2D" parent="Sun" unique_id=700721136]
+texture = ExtResource("1_4hwty")
 
 [node name="Earth" parent="." unique_id=451977070 groups=["gravity_sources"] instance=ExtResource("2_pevjf")]
 position = Vector2(30000, 0)

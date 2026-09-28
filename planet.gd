@@ -7,7 +7,7 @@ var orbit_speed: float = 0
 var orbit_angle: float = 0.0
 
 func _ready() -> void:
-	orbit_speed = sqrt(Constants.sun_mass * Constants.G/orbit_radius)/orbit_radius if orbit_radius else 0.0
+	orbit_speed = sqrt($"../Sun".mass * Constants.G/orbit_radius)/orbit_radius if orbit_radius else 0.0
 	$PlanetTexture.texture = planet_texture
 	radius = $CollisionShape2D.shape.radius*scale.x
 	print(radius)
