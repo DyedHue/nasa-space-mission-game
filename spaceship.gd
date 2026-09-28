@@ -6,14 +6,15 @@ var target_planet: Node2D = null
 var engine_on := false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# 1. Wait a split second for everything to load
-	await get_tree().process_frame
+	# # 1. Wait a split second for everything to load
+	# await get_tree().process_frame
 
-	# 2. Grab your static planet
-	var planet = get_tree().get_nodes_in_group("gravity_sources")[1]
+	# # 2. Grab your static planet
+	# var planet = get_tree().get_nodes_in_group("gravity_sources")[1]
 
-	# 3. Spawn the rocket 1000 pixels above the planet
-	global_position = planet.global_position + Vector2(0, -1000)
+	# # 3. Spawn the rocket 1000 pixels above the planet
+	# global_position = planet.global_position + Vector2(0, -1000)
+	# # linear_velocity = planet.get_velocity()
 
 	# # 4. Calculate the EXACT circular orbital velocity: sqrt(G * M / r)
 	# var r = 1000.0
@@ -53,7 +54,7 @@ func _physics_process(delta: float) -> void:
 		apply_central_force(force_vector)
 
 	draw_trajectory(0.5, planets)
-	print(linear_velocity)
+	# print(linear_velocity)
 
 func draw_trajectory(time_step:float, planets: Array):
 	trajectory.clear_points()

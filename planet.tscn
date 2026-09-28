@@ -9,6 +9,7 @@ radius = 304.00165
 script = ExtResource("1_mtr83")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=258074943]
+rotation = 0.1308997
 shape = SubResource("CircleShape2D_v6two")
 
 [node name="PlanetTexture" type="Sprite2D" parent="." unique_id=1952127049]

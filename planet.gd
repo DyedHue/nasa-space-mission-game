@@ -7,25 +7,28 @@ var orbit_speed: float = 0
 var orbit_angle: float = 0.0
 
 func _ready() -> void:
-
 	orbit_speed = sqrt(Constants.sun_mass * Constants.G/orbit_radius)/orbit_radius if orbit_radius else 0.0
 	$PlanetTexture.texture = planet_texture
-	radius = $PlanetTexture.texture.get_width()*scale.x
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+	radius = $CollisionShape2D.shape.radius*scale.x
+	print(radius)
+	var new_scale = $CollisionShape2D.shape.radius/($PlanetTexture.texture.get_size().x/2)
+	$PlanetTexture.scale.x = new_scale
+	$PlanetTexture.scale.y = new_scale
+
 func _physics_process(delta: float) -> void:
 	orbit_angle += orbit_speed * delta
-	# 2. Calculate the new X and Y position
+
 	var new_x = cos(orbit_angle) * orbit_radius
 	var new_y = sin(orbit_angle) * orbit_radius
 	
-	# 3. Move the planet
 	global_position = Vector2(new_x, new_y)
+
 func get_velocity() -> Vector2:
 	var vx = -sin(orbit_angle) * orbit_radius * orbit_speed
 	var vy = cos(orbit_angle) * orbit_radius * orbit_speed
 	return Vector2(vx, vy)
+	
 func get_future_position(time_offset: float) -> Vector2:
-	# Calculate what the angle WILL be after 'time_offset' seconds
 	var future_angle = orbit_angle + (orbit_speed * time_offset)
 	
 	var future_x = cos(future_angle) * orbit_radius
