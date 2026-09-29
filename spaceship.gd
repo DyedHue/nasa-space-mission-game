@@ -1,23 +1,25 @@
 extends RigidBody2D
+
 @export var trajectory: Line2D
 @export var deltav := 10000.0
 @onready var forward_direction = $ForwardDirection
+
+var planets: Array
 var target_planet: Node2D = null
 var engine_on := false
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
 	await get_tree().process_frame
+	planets = get_tree().get_nodes_in_group("gravity_sources")
 
-	var planet = get_tree().get_nodes_in_group("gravity_sources")[2]
-
+	var planet = planets[2]
 	global_position = planet.global_position + Vector2(0, -1000)
 
-	var r = 1000.0
-	var orbital_speed = sqrt((Constants.G * planet.mass) / r)
+	# var r = 1000.0
+	# var orbital_speed = sqrt((Constants.G * planet.mass) / r)
 
-	linear_velocity = Vector2(orbital_speed, 0) + planet.get_velocity()
-	pass
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+	# linear_velocity = Vector2(orbital_speed, 0) + planet.get_velocity()
+
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("toggle_engine"):
 		engine_on = !engine_on
@@ -30,7 +32,7 @@ func _physics_process(delta: float) -> void:
 
 	if engine_on:
 		apply_central_force(global_position.direction_to(forward_direction.global_position) * deltav)
-	var planets = get_tree().get_nodes_in_group("gravity_sources")
+
 	for planet in planets:
 		# Vector math to find direction and distance
 		var direction_to_planet = global_position.direction_to(planet.global_position)

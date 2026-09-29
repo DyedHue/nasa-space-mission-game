@@ -1,5 +1,7 @@
 extends StaticBody2D
+
 @export var mass: float = 500000.0
+
 func _ready() -> void:
 	# 1. Ensure the orbit lines render BEHIND the planets and sun
 	z_index = -1
@@ -13,7 +15,7 @@ func _draw() -> void:
 	for body in celestial_bodies:
 		# Check if the body is a moving planet (has an orbit_radius greater than 0)
 		if "orbit_radius" in body and body.orbit_radius > 0:
-			draw_circle(Vector2.ZERO, body.orbit_radius, Color.WHITE, false)
+			draw_circle(Vector2.ZERO, body.orbit_radius, Color8(50, 50, 50, 255), false)
 
 func get_future_position(time_offset: float) -> Vector2:
 	return Vector2.ZERO

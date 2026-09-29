@@ -14,29 +14,31 @@
 
 [node name="Sun" type="StaticBody2D" parent="." unique_id=688560730 groups=["gravity_sources"]]
 script = ExtResource("2_p6gje")
+mass = 0.0
 
 [node name="Sun" type="Sprite2D" parent="Sun" unique_id=700721136]
 texture = ExtResource("1_4hwty")
 
 [node name="Mercury" parent="." unique_id=1431494116 groups=["gravity_sources"] instance=ExtResource("2_pevjf")]
 position = Vector2(20000, 0)
-scale = Vector2(1.815, 1.815)
 planet_texture = ExtResource("5_ctlew")
 orbit_radius = 20000.0
 mass = 50000.0
+radius = 400.0
 
 [node name="Earth" parent="." unique_id=451977070 groups=["gravity_sources"] instance=ExtResource("2_pevjf")]
 position = Vector2(30000, 0)
-scale = Vector2(2.245, 2.245)
 planet_texture = ExtResource("3_i3b6p")
 orbit_radius = 30000.0
+radius = 800.0
+atmosphere_radius = 2000.0
 
 [node name="Mars" parent="." unique_id=440025245 groups=["gravity_sources"] instance=ExtResource("2_pevjf")]
 position = Vector2(50000, 0)
-scale = Vector2(1.87, 1.87)
 planet_texture = ExtResource("7_p6gje")
 orbit_radius = 50000.0
 mass = 80000.0
+radius = 550.0
 
 [node name="Spaceship" parent="." unique_id=1190256098 node_paths=PackedStringArray("trajectory") instance=ExtResource("3_56m4v")]
 position = Vector2(20001, -570)
@@ -47,7 +49,7 @@ trajectory = NodePath("../Trajectory")
 deltav = 2000.0
 
 [node name="Camera2D" type="Camera2D" parent="Spaceship" unique_id=602443403]
-position = Vector2(0, 57.99994)
+position = Vector2(0, -33.41)
 scale = Vector2(1.0000001, 1.0000001)
 zoom = Vector2(0.73, 0.73)
 script = ExtResource("1_pevjf")

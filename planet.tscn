@@ -1,12 +1,25 @@
 [gd_scene format=3 uid="uid://c4o566pkvsiv5"]
 
 [ext_resource type="Script" uid="uid://dcx3qdytp4wtc" path="res://planet.gd" id="1_mtr83"]
+[ext_resource type="Shader" uid="uid://beco6sokj7vtv" path="res://atmosphere.gdshader" id="2_mtr83"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1odxm"]
+shader = ExtResource("2_mtr83")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v6two"]
-radius = 304.00165
+radius = 1.0
 
 [node name="Planet" type="AnimatableBody2D" unique_id=440025245]
 script = ExtResource("1_mtr83")
+
+[node name="Atmosphere" type="ColorRect" parent="." unique_id=917201230]
+material = SubResource("ShaderMaterial_1odxm")
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+pivot_offset = Vector2(50, 50)
+mouse_filter = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=258074943]
 rotation = 0.1308997
