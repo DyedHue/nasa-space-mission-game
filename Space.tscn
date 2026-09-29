@@ -7,8 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://cwe0r4ywbfttg" path="res://spaceship.tscn" id="3_56m4v"]
 [ext_resource type="Texture2D" uid="uid://ccuhl0ohc5bm6" path="res://earth.png" id="3_i3b6p"]
 [ext_resource type="Texture2D" uid="uid://brhwrrmqfnkda" path="res://mercury.png" id="5_ctlew"]
-[ext_resource type="Script" uid="uid://dc7vmny4t4opo" path="res://option_button.gd" id="6_i3b6p"]
 [ext_resource type="Texture2D" uid="uid://dopa1ekelp5mg" path="res://mars.png" id="7_p6gje"]
+[ext_resource type="Script" uid="uid://bl7hm5j7v7md4" path="res://current_target.gd" id="9_nd0x5"]
+[ext_resource type="Script" uid="uid://bo5nliuuhsmee" path="res://reset_target.gd" id="10_ivkkc"]
+[ext_resource type="Script" uid="uid://druvxen40fhsr" path="res://menu_button.gd" id="10_jfkos"]
+[ext_resource type="Script" uid="uid://bdpfh6v3aux51" path="res://Select Target.gd" id="11_fc6ul"]
+[ext_resource type="Script" uid="uid://djaxgxm4okliu" path="res://engine_status.gd" id="13_nd0x5"]
 
 [node name="Space" type="Node2D" unique_id=758463626]
 
@@ -54,7 +58,8 @@ deltav = 2000.0
 [node name="Camera2D" type="Camera2D" parent="Spaceship" unique_id=602443403]
 position = Vector2(0, -33.41)
 scale = Vector2(1.0000001, 1.0000001)
-zoom = Vector2(0.73, 0.73)
+ignore_rotation = false
+zoom = Vector2(3, 3)
 script = ExtResource("1_pevjf")
 
 [node name="Trajectory" type="Line2D" parent="." unique_id=502294482]
@@ -62,10 +67,85 @@ width = 2.16
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=225608613]
 
-[node name="OptionButton" type="OptionButton" parent="CanvasLayer" unique_id=1020626088 node_paths=PackedStringArray("spaceship")]
-offset_right = 40.0
-offset_bottom = 20.0
-script = ExtResource("6_i3b6p")
+[node name="Current Target" type="Label" parent="CanvasLayer" unique_id=1800901640 node_paths=PackedStringArray("spaceship")]
+offset_left = 6.0
+offset_top = 9.0
+offset_right = 46.0
+offset_bottom = 32.0
+theme_override_font_sizes/font_size = 23
+script = ExtResource("9_nd0x5")
+spaceship = NodePath("../../Spaceship")
+
+[node name="Select Target" type="Button" parent="CanvasLayer" unique_id=336695135 node_paths=PackedStringArray("spaceship")]
+offset_left = 12.0
+offset_top = 48.0
+offset_right = 120.0
+offset_bottom = 79.0
+text = "Select Target"
+script = ExtResource("11_fc6ul")
+spaceship = NodePath("../../Spaceship")
+
+[node name="Reset Target" type="Button" parent="CanvasLayer" unique_id=1292375707 node_paths=PackedStringArray("spaceship")]
+offset_left = 12.0
+offset_top = 83.0
+offset_right = 117.0
+offset_bottom = 114.0
+text = "Reset Target"
+script = ExtResource("10_ivkkc")
+spaceship = NodePath("../../Spaceship")
+
+[node name="CheckButton" type="CheckButton" parent="CanvasLayer" unique_id=1887552752]
+offset_left = 1151.0
+offset_top = 19.0
+offset_right = 1680.0
+offset_bottom = 50.0
+text = "Show future ghost planet position when the trajectory collides"
+
+[node name="Controls background" type="Button" parent="CanvasLayer" unique_id=1390040495]
+offset_left = 226.0
+offset_top = 10.0
+offset_right = 318.0
+offset_bottom = 41.0
+mouse_filter = 2
+text = " "
+
+[node name="Controls" type="MenuButton" parent="CanvasLayer" unique_id=2058165938]
+offset_left = 235.0
+offset_top = 8.0
+offset_right = 313.0
+offset_bottom = 39.0
+text = "Controls "
+script = ExtResource("10_jfkos")
+
+[node name="PopupPanel" type="PopupPanel" parent="CanvasLayer/Controls" unique_id=268691818]
+oversampling_override = 1.0
+size = Vector2i(337, 291)
+visible = true
+
+[node name="Label" type="Label" parent="CanvasLayer/Controls/PopupPanel" unique_id=673097133]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 333.0
+offset_bottom = 287.0
+text = "F -  Toggle spaceship engine
+A - Rotate spaceship counter clockwise
+D - Rotate spaceship clockwise
+
+Q - Rotate the view counter clockwise
+E - Rotate the view clockwise
+
+Drag with mouse to move the view around
+Scroll up or down to adjust zoom amount
+
+R - Reset view"
+
+[node name="Engine Status" type="Label" parent="CanvasLayer" unique_id=62544349 node_paths=PackedStringArray("spaceship")]
+offset_left = 32.0
+offset_top = 833.0
+offset_right = 72.0
+offset_bottom = 856.0
+theme_override_font_sizes/font_size = 26
+script = ExtResource("13_nd0x5")
 spaceship = NodePath("../../Spaceship")
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=75072983]
@@ -75,4 +155,4 @@ layer = -10
 offset_right = 1695.0
 offset_bottom = 889.0
 mouse_filter = 2
-color = Color(0, 0, 0, 1)
+color = Color(0.09360065, 0.10226504, 0.13270575, 1)

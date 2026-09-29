@@ -7,6 +7,8 @@ extends RigidBody2D
 var planets: Array
 var target_planet: Node2D = null
 var engine_on := false
+@onready var closest_planet = $"../Earth"
+var collidingSprite: Sprite2D = Sprite2D.new()
 
 func _ready() -> void:
 	await get_tree().process_frame
@@ -20,6 +22,7 @@ func _ready() -> void:
 	# var orbital_speed = sqrt((Constants.G * planet.mass) / r)
 
 	# linear_velocity = Vector2(orbital_speed, 0) + planet.get_velocity()
+	add_child(collidingSprite)
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("toggle_engine"):
@@ -34,29 +37,39 @@ func _physics_process(delta: float) -> void:
 	if engine_on:
 		apply_central_force(global_position.direction_to(forward_direction.global_position) * deltav)
 
+	var min_distance: float = INF
 	for planet in planets:
-		# Vector math to find direction and distance
 		var direction_to_planet = global_position.direction_to(planet.global_position)
 		var distance = global_position.distance_to(planet.global_position)
-		
+		if(distance < min_distance):
+			min_distance = distance
+			closest_planet = planet
 		# Prevent division by zero if the ship is exactly in the center of a planet
 		if distance < 1.0:
 			distance = 1.0 
 			
 		var gravity_force = Constants.G * (planet.mass * mass) / (distance * distance)
-		
-		# Apply the force to the ship
+
 		var force_vector = direction_to_planet * gravity_force
 		apply_central_force(force_vector)
 
 	draw_trajectory(0.5, planets)
 	# print(linear_velocity)
 
+func _process(delta: float) -> void:
+	if $Camera2D.zoom.x < 0.4:
+		$Arrow.visible = true
+		$Arrow.scale = Vector2.ONE*(1/$Camera2D.zoom.x)*0.6
+	else:
+		$Arrow.visible = false
+
 func draw_trajectory(time_step:float, planets: Array):
 	trajectory.clear_points()
+	trajectory.width = 2 / $Camera2D.zoom.x
+
 	var current_position := global_position
 	var current_velocity := linear_velocity
-	for i in range(430):
+	for i in range(800):
 		var total_acceleration := Vector2.ZERO
 		for planet in planets:
 			# Vector math to find direction and distance
@@ -74,12 +87,37 @@ func draw_trajectory(time_step:float, planets: Array):
 		current_position += current_velocity * time_step
 
 		if target_planet == null:
-			# Standard Global Trajectory (wavy spiral)
+			var invalid := false
+			for planet in planets:
+				var future_pos: Vector2 = planet.get_future_position((i+1) * time_step)
+				if planet.name != "Sun" and (current_position - future_pos).length() < planet.radius:
+					invalid = true
+					if $"../CanvasLayer/CheckButton".button_pressed:
+						collidingSprite.texture = planet.get_node("PlanetTexture").texture
+						collidingSprite.scale = planet.get_node("PlanetTexture").scale
+						collidingSprite.global_position = future_pos
+						collidingSprite.modulate = Color8(255, 255, 255, 40)
+						collidingSprite.global_rotation = 0
+			if invalid: break
+			collidingSprite.modulate = Color8(255, 255, 255, 0)
 			trajectory.add_point(trajectory.to_local(current_position))
 		else:
-			# Relative Trajectory (clean circle/orbit around the target!)
 			var future_target_pos = target_planet.get_future_position((i+1) * time_step)
 			var relative_offset = current_position - future_target_pos
+
+			var invalid := false
+			for planet in planets:
+				var future_pos: Vector2 = planet.get_future_position((i+1) * time_step)
+				if planet.name != "Sun" and (current_position - future_pos).length() < planet.radius:
+					invalid = true
+					if $"../CanvasLayer/CheckButton".button_pressed:
+						collidingSprite.texture = planet.get_node("PlanetTexture").texture
+						collidingSprite.scale = planet.get_node("PlanetTexture").scale
+						collidingSprite.global_position = target_planet.global_position + (future_pos - future_target_pos)
+						collidingSprite.modulate = Color8(255, 255, 255, 40)
+						collidingSprite.global_rotation = 0
+			if invalid: break
+			collidingSprite.modulate = Color8(255, 255, 255, 0)
 
 			# Draw it around the planet's CURRENT screen position
 			var draw_position = target_planet.global_position + relative_offset

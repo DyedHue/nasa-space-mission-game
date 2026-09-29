@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://3gq6lwrlkimi" path="res://rocket.png" id="2_7g3nn"]
 [ext_resource type="Texture2D" uid="uid://qx2ow80m5hrs" path="res://exhaust.png" id="2_pmkdn"]
 [ext_resource type="Script" uid="uid://dwquy86uph5jg" path="res://exhaust.gd" id="3_51qc7"]
+[ext_resource type="Texture2D" uid="uid://dvsbahe1k5ns2" path="res://arrow.png" id="5_gsmss"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pmkdn"]
 radius = 71.0
@@ -45,3 +46,7 @@ shape = SubResource("RectangleShape2D_v6two")
 [node name="ForwardDirection" type="Node2D" parent="." unique_id=755866012]
 position = Vector2(0, -1)
 scale = Vector2(0.2766398, 0.2766398)
+
+[node name="Arrow" type="Sprite2D" parent="." unique_id=896026941]
+visible = false
+texture = ExtResource("5_gsmss")

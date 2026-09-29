@@ -18,8 +18,7 @@ func _ready() -> void:
     # 3. Find all moving planets and add them to the dropdown list
     var bodies = get_tree().get_nodes_in_group("gravity_sources")
     for body in bodies:
-        # Only add planets that have our get_future_position method (skip the Sun!)
-        if body.has_method("get_future_position"):
+        if body.name != "Sun":
             tracked_planets.append(body)
             add_item("Target: " + body.name)
             
