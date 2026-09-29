@@ -14,7 +14,7 @@
 
 [node name="Sun" type="StaticBody2D" parent="." unique_id=688560730 groups=["gravity_sources"]]
 script = ExtResource("2_p6gje")
-mass = 0.0
+mass = 1000000.0
 
 [node name="Sun" type="Sprite2D" parent="Sun" unique_id=700721136]
 texture = ExtResource("1_4hwty")
@@ -32,6 +32,7 @@ planet_texture = ExtResource("3_i3b6p")
 orbit_radius = 30000.0
 radius = 800.0
 atmosphere_radius = 2000.0
+atmosphere_tint = Color(0.7014999, 0.76149374, 0.87118965, 1)
 
 [node name="Mars" parent="." unique_id=440025245 groups=["gravity_sources"] instance=ExtResource("2_pevjf")]
 position = Vector2(50000, 0)
@@ -39,6 +40,8 @@ planet_texture = ExtResource("7_p6gje")
 orbit_radius = 50000.0
 mass = 80000.0
 radius = 550.0
+atmosphere_radius = 1200.0
+atmosphere_tint = Color(0.8326997, 0.50275075, 0.45825952, 1)
 
 [node name="Spaceship" parent="." unique_id=1190256098 node_paths=PackedStringArray("trajectory") instance=ExtResource("3_56m4v")]
 position = Vector2(20001, -570)

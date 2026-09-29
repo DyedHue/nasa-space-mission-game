@@ -13,7 +13,8 @@ func _ready() -> void:
 	planets = get_tree().get_nodes_in_group("gravity_sources")
 
 	var planet = planets[2]
-	global_position = planet.global_position + Vector2(0, -1000)
+	global_position = planet.global_position + Vector2(0, -800)
+	linear_velocity = planet.get_velocity()
 
 	# var r = 1000.0
 	# var orbital_speed = sqrt((Constants.G * planet.mass) / r)
