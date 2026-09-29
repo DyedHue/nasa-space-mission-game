@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c4o566pkvsiv5" path="res://planet.tscn" id="2_pevjf"]
 [ext_resource type="PackedScene" uid="uid://cwe0r4ywbfttg" path="res://spaceship.tscn" id="3_56m4v"]
 [ext_resource type="Texture2D" uid="uid://ccuhl0ohc5bm6" path="res://earth.png" id="3_i3b6p"]
+[ext_resource type="Texture2D" uid="uid://brhwrrmqfnkda" path="res://mercury.png" id="5_ctlew"]
 [ext_resource type="Script" uid="uid://dc7vmny4t4opo" path="res://option_button.gd" id="6_i3b6p"]
 [ext_resource type="Texture2D" uid="uid://dopa1ekelp5mg" path="res://mars.png" id="7_p6gje"]
 
@@ -17,18 +18,25 @@ script = ExtResource("2_p6gje")
 [node name="Sun" type="Sprite2D" parent="Sun" unique_id=700721136]
 texture = ExtResource("1_4hwty")
 
+[node name="Mercury" parent="." unique_id=1431494116 groups=["gravity_sources"] instance=ExtResource("2_pevjf")]
+position = Vector2(20000, 0)
+scale = Vector2(1.815, 1.815)
+planet_texture = ExtResource("5_ctlew")
+orbit_radius = 20000.0
+mass = 50000.0
+
 [node name="Earth" parent="." unique_id=451977070 groups=["gravity_sources"] instance=ExtResource("2_pevjf")]
 position = Vector2(30000, 0)
 scale = Vector2(2.245, 2.245)
 planet_texture = ExtResource("3_i3b6p")
 orbit_radius = 30000.0
 
-[node name="Planet 2" parent="." unique_id=1431494116 groups=["gravity_sources"] instance=ExtResource("2_pevjf")]
-position = Vector2(20000, 0)
-scale = Vector2(1.815, 1.815)
+[node name="Mars" parent="." unique_id=440025245 groups=["gravity_sources"] instance=ExtResource("2_pevjf")]
+position = Vector2(50000, 0)
+scale = Vector2(1.87, 1.87)
 planet_texture = ExtResource("7_p6gje")
-orbit_radius = 20000.0
-mass = 50000.0
+orbit_radius = 50000.0
+mass = 80000.0
 
 [node name="Spaceship" parent="." unique_id=1190256098 node_paths=PackedStringArray("trajectory") instance=ExtResource("3_56m4v")]
 position = Vector2(20001, -570)
@@ -54,3 +62,12 @@ offset_right = 40.0
 offset_bottom = 20.0
 script = ExtResource("6_i3b6p")
 spaceship = NodePath("../../Spaceship")
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="." unique_id=75072983]
+layer = -10
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer2" unique_id=776545366]
+offset_right = 1695.0
+offset_bottom = 889.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
