@@ -152,7 +152,10 @@ spaceship = NodePath("../../Spaceship")
 layer = -10
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer2" unique_id=776545366]
-offset_right = 1695.0
-offset_bottom = 889.0
+offset_left = -453.0
+offset_top = -311.0
+offset_right = 1242.0
+offset_bottom = 578.0
+scale = Vector2(1.523365, 1.7956847)
 mouse_filter = 2
 color = Color(0.09360065, 0.10226504, 0.13270575, 1)
