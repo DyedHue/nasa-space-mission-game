@@ -47,6 +47,9 @@ radius = 550.0
 atmosphere_radius = 1200.0
 atmosphere_tint = Color(0.8326997, 0.50275075, 0.45825952, 1)
 
+[node name="Trajectory" type="Line2D" parent="." unique_id=502294482]
+width = 2.16
+
 [node name="Spaceship" parent="." unique_id=1190256098 node_paths=PackedStringArray("trajectory") instance=ExtResource("3_56m4v")]
 position = Vector2(20001, -570)
 mass = 75.149
@@ -61,9 +64,6 @@ scale = Vector2(1.0000001, 1.0000001)
 ignore_rotation = false
 zoom = Vector2(3, 3)
 script = ExtResource("1_pevjf")
-
-[node name="Trajectory" type="Line2D" parent="." unique_id=502294482]
-width = 2.16
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=225608613]
 

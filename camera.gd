@@ -31,5 +31,4 @@ func _unhandled_input(event: InputEvent) -> void:
 			
 	# Update camera offset when the mouse moves while dragging
 	elif event is InputEventMouseMotion and is_dragging:
-		# Dividing by zoom ensures panning feels exactly the same no matter how zoomed in/out you are
-		offset -= (event.relative * pan_speed) / zoom
+		offset -= (event.relative.rotated(global_rotation) * pan_speed) / zoom
