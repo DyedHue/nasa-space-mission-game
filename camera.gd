@@ -7,10 +7,10 @@ var current_rotation := 0.0
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("scroll_up"):
-		if zoom.x <= 3:
+		# if zoom.x <= 3:
 			zoom *= 1.2
 	if Input.is_action_just_pressed("scroll_down"):
-		if zoom.x >= 0.02:
+		# if zoom.x >= 0.02:
 			zoom *= 0.8
 	if Input.is_action_pressed("q"):
 		current_rotation -= 0.01

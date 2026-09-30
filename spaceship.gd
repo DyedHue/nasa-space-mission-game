@@ -8,14 +8,19 @@ var planets: Array
 var target_planet: Node2D = null
 var engine_on := false
 @onready var closest_planet = $"../Earth"
+
+# var orbiting_planet:Node2D = null
 var collidingSprite: Sprite2D = Sprite2D.new()
+
+var last_trajectory_pos:Vector2
+var last_trajectory_velocity:Vector2
 
 func _ready() -> void:
 	await get_tree().process_frame
 	planets = get_tree().get_nodes_in_group("gravity_sources")
 
 	var planet = planets[2]
-	global_position = planet.global_position + Vector2(0, -800)
+	global_position = planet.global_position + Vector2(0, -planet.radius)
 	linear_velocity = planet.get_velocity()
 
 	# var r = 1000.0
@@ -52,6 +57,18 @@ func _physics_process(delta: float) -> void:
 
 		var force_vector = direction_to_planet * gravity_force
 		apply_central_force(force_vector)
+	
+	# orbiting_planet = null
+	# for planet in planets:
+	# 	if planet.name == "Sun": continue
+	# 	var distance: float = (global_position - planet.global_position).length()
+	# 	var v:float =(linear_velocity - planet.get_velocity()).length()
+	# 	var v_esc :float = sqrt(2*Constants.G*planet.mass/distance)
+	# 	# var orbital_energy:float = v*v/2 - Constants.G*planet.mass/r
+	# 	if v < v_esc:
+	# 		orbiting_planet = planet
+
+	# print(orbiting_planet)
 
 	draw_trajectory(0.5, planets)
 	# print(linear_velocity)
@@ -65,17 +82,18 @@ func _process(delta: float) -> void:
 
 func draw_trajectory(time_step:float, planets: Array):
 	trajectory.clear_points()
+	last_trajectory_pos = global_position
+	last_trajectory_velocity = linear_velocity
+	
 	trajectory.width = 2 / $Camera2D.zoom.x
 
-	var current_position := global_position
-	var current_velocity := linear_velocity
 	for i in range(800):
 		var total_acceleration := Vector2.ZERO
 		for planet in planets:
 			# Vector math to find direction and distance
 			var future_pos = planet.get_future_position((i+1)*time_step)
-			var direction_to_planet = current_position.direction_to(future_pos)
-			var distance = current_position.distance_to(future_pos)
+			var direction_to_planet = last_trajectory_pos.direction_to(future_pos)
+			var distance = last_trajectory_pos.distance_to(future_pos)
 			
 			# Prevent division by zero if the ship is exactly in the center of a planet
 			if distance < 1.0:
@@ -83,14 +101,14 @@ func draw_trajectory(time_step:float, planets: Array):
 				
 			var acceleration = Constants.G * planet.mass / (distance * distance)
 			total_acceleration += direction_to_planet*acceleration
-		current_velocity += total_acceleration * time_step
-		current_position += current_velocity * time_step
+		last_trajectory_velocity += total_acceleration * time_step
+		last_trajectory_pos += last_trajectory_velocity * time_step
 
 		if target_planet == null:
 			var invalid := false
 			for planet in planets:
 				var future_pos: Vector2 = planet.get_future_position((i+1) * time_step)
-				if planet.name != "Sun" and (current_position - future_pos).length() < planet.radius:
+				if planet.name != "Sun" and (last_trajectory_pos - future_pos).length() < planet.radius:
 					invalid = true
 					if $"../CanvasLayer/CheckButton".button_pressed:
 						collidingSprite.texture = planet.get_node("PlanetTexture").texture
@@ -100,15 +118,15 @@ func draw_trajectory(time_step:float, planets: Array):
 						collidingSprite.global_rotation = 0
 			if invalid: break
 			collidingSprite.modulate = Color8(255, 255, 255, 0)
-			trajectory.add_point(trajectory.to_local(current_position))
+			trajectory.add_point(trajectory.to_local(last_trajectory_pos))
 		else:
 			var future_target_pos = target_planet.get_future_position((i+1) * time_step)
-			var relative_offset = current_position - future_target_pos
+			var relative_offset = last_trajectory_pos - future_target_pos
 
 			var invalid := false
 			for planet in planets:
 				var future_pos: Vector2 = planet.get_future_position((i+1) * time_step)
-				if planet.name != "Sun" and (current_position - future_pos).length() < planet.radius:
+				if planet.name != "Sun" and (last_trajectory_pos - future_pos).length() < planet.radius:
 					invalid = true
 					if $"../CanvasLayer/CheckButton".button_pressed:
 						collidingSprite.texture = planet.get_node("PlanetTexture").texture

@@ -33,7 +33,7 @@ radius = 400.0
 [node name="Earth" parent="." unique_id=451977070 groups=["gravity_sources"] instance=ExtResource("2_pevjf")]
 position = Vector2(30000, 0)
 planet_texture = ExtResource("3_i3b6p")
-orbit_radius = 30000.0
+orbit_radius = 50000.0
 radius = 800.0
 atmosphere_radius = 2000.0
 atmosphere_tint = Color(0.7014999, 0.76149374, 0.87118965, 1)
@@ -41,7 +41,7 @@ atmosphere_tint = Color(0.7014999, 0.76149374, 0.87118965, 1)
 [node name="Mars" parent="." unique_id=440025245 groups=["gravity_sources"] instance=ExtResource("2_pevjf")]
 position = Vector2(50000, 0)
 planet_texture = ExtResource("7_p6gje")
-orbit_radius = 50000.0
+orbit_radius = 100000.0
 mass = 80000.0
 radius = 550.0
 atmosphere_radius = 1200.0

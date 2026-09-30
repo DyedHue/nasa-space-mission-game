@@ -51,7 +51,9 @@ func _unhandled_input(event: InputEvent) -> void:
 					min_distance = distance
 					target_planet = planet
 
-		spaceship.target_planet = target_planet
+		if spaceship.target_planet != target_planet:
+			spaceship.target_planet = target_planet
+			# spaceship.target_was_changed = true
 		print("Selected World Position: ", selected_world_position)
 		print(target_planet)
 
