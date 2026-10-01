@@ -53,7 +53,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 		if spaceship.target_planet != target_planet:
 			spaceship.target_planet = target_planet
-			# spaceship.target_was_changed = true
+			if spaceship.has_method("reset_trajectory"):
+				spaceship.reset_trajectory()
 		print("Selected World Position: ", selected_world_position)
 		print(target_planet)
 

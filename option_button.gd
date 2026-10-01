@@ -29,8 +29,12 @@ func _on_item_selected(index: int) -> void:
     if index == 0:
         # Global view selected
         spaceship.target_planet = null
+        if spaceship.has_method("reset_trajectory"):
+            spaceship.reset_trajectory()
         print("Switched to Global Trajectory")
     else:
         # Planet selected (index - 1 because index 0 is Global View)
         spaceship.target_planet = tracked_planets[index - 1]
+        if spaceship.has_method("reset_trajectory"):
+            spaceship.reset_trajectory()
         print("Targeting: ", spaceship.target_planet.name)

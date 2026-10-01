@@ -8,3 +8,5 @@ func _ready() -> void:
 
 func _on_select_location_button_pressed() -> void:
 	spaceship.target_planet = null
+	if spaceship.has_method("reset_trajectory"):
+		spaceship.reset_trajectory()
